@@ -2608,5 +2608,167 @@
   detectCountry();
 
   /* ─── MODAL ─── */
+  /* ─── MODAL ─── */
   const modalConfigs = {
-    default: { tag: 'Enquire Now', title: '
+    default: {
+      tag: 'Enquire Now',
+      title: 'Get Exclusive Pre-Launch Details',
+      sub: 'Fill in your details — our expert will call you within 10 minutes'
+    },
+    brochure: {
+      tag: 'Download Brochure',
+      title: 'Get the Official Brochure',
+      sub: 'Enter your details and we'll send the brochure instantly'
+    },
+    price: {
+      tag: 'Get Best Price',
+      title: 'Unlock Pre-Launch Pricing',
+      sub: 'Prices change daily — lock in the best rate now'
+    }
+  };
+
+  function openModal(configKey) {
+    const cfg = modalConfigs[configKey || 'default'] || modalConfigs.default;
+    const overlay = document.getElementById('modalOverlay');
+    const tagEl    = document.getElementById('modalTag');
+    const titleEl  = document.getElementById('modalTitle');
+    const subEl    = document.getElementById('modalSub');
+    if (tagEl)   tagEl.textContent   = cfg.tag;
+    if (titleEl) titleEl.textContent = cfg.title;
+    if (subEl)   subEl.textContent   = cfg.sub;
+    overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    // Reset form state
+    var form = document.getElementById('modalForm');
+    var successEl = document.getElementById('modalFormSuccess');
+    if (form) { form.reset(); form.style.display = ''; }
+    if (successEl) successEl.style.display = 'none';
+  }
+
+  function closeModal() {
+    var overlay = document.getElementById('modalOverlay');
+    if (overlay) overlay.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  // Close modal on overlay background click
+  var overlay = document.getElementById('modalOverlay');
+  if (overlay) {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+  }
+
+  // Close modal on ESC key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeModal();
+      closeMobileNav();
+    }
+  });
+
+  /* ─── GOOGLE SHEETS FORM HANDLER ─── */
+  // STEP 1: Replace the URL below with your Google Apps Script deployment URL
+  // STEP 2: After replacing, upload index.html to GitHub and Vercel will auto-deploy
+  var APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+  function handleSubmit(e, formId) {
+    e.preventDefault();
+    var form = document.getElementById(formId);
+    var btn  = form.querySelector('button[type="submit"]');
+    var successId = formId + 'Success';
+    var successEl = document.getElementById(successId);
+
+    // Collect all form fields
+    var nameEl      = form.querySelector('[name="name"]');
+    var phoneEl     = form.querySelector('[name="phone"]');
+    var emailEl     = form.querySelector('[name="email"]');
+    var interestEl  = form.querySelector('[name="interest"]');
+    var ccEl        = form.querySelector('[name="countryCode"]');
+    var sourceEl    = form.querySelector('[name="source"]');
+
+    var data = {
+      name:         nameEl     ? nameEl.value.trim()     : '',
+      phone:        (ccEl ? ccEl.value : '+91') + (phoneEl ? phoneEl.value.trim() : ''),
+      email:        emailEl    ? emailEl.value.trim()    : '',
+      interest:     interestEl ? interestEl.value        : '',
+      source:       sourceEl   ? sourceEl.value          : formId,
+      utm_source:   sessionStorage.getItem('utm_source')   || '',
+      utm_medium:   sessionStorage.getItem('utm_medium')   || '',
+      utm_campaign: sessionStorage.getItem('utm_campaign') || '',
+      utm_term:     sessionStorage.getItem('utm_term')     || '',
+      utm_content:  sessionStorage.getItem('utm_content')  || '',
+      gclid:        sessionStorage.getItem('gclid')        || '',
+      landing_url:  sessionStorage.getItem('landing_url')  || window.location.href,
+      timestamp:    new Date().toISOString()
+    };
+
+    // Show loading state on button
+    var originalHTML = btn.innerHTML;
+    btn.innerHTML    = 'Submitting…';
+    btn.disabled     = true;
+
+    // Send to Google Sheets via Apps Script
+    // mode: 'no-cors' because Apps Script doesn't set CORS headers on deployed URLs
+    var submitToSheet = APPS_SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'
+      ? fetch(APPS_SCRIPT_URL, {
+          method:  'POST',
+          mode:    'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(data)
+        })
+      : Promise.resolve(); // skip fetch if URL not yet configured
+
+    submitToSheet
+      .then(function() {
+        // Redirect to thank-you page
+        window.location.href = 'thankyou.html';
+      })
+      .catch(function() {
+        // On network error still redirect — lead not lost
+        window.location.href = 'thankyou.html';
+      });
+  }
+
+  /* ─── FAQ ACCORDION ─── */
+  document.querySelectorAll('.faq-item').forEach(function(item) {
+    var question = item.querySelector('.faq-question');
+    if (!question) return;
+    question.addEventListener('click', function() {
+      var isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(function(i) {
+        i.classList.remove('open');
+      });
+      // Toggle clicked
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  /* ─── SMOOTH SCROLL FOR NAV LINKS ─── */
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        closeMobileNav();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  /* ─── STICKY HEADER SHADOW ON SCROLL ─── */
+  window.addEventListener('scroll', function() {
+    var header = document.querySelector('.header');
+    if (header) {
+      if (window.scrollY > 50) {
+        header.style.boxShadow = '0 4px 30px rgba(0,0,0,0.12)';
+      } else {
+        header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.06)';
+      }
+    }
+  }, { passive: true });
+
+</script>
+</body>
+</html>
