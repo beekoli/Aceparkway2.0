@@ -2099,6 +2099,245 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ─── PAYMENT PLAN ──────────────────────────────────────── -->
+<section class="section payment-section" id="payment-plan">
+  <div class="container">
+    <div class="payment-header">
+      <span class="section-tag">Payment Plan</span>
+      <h2>Flexible 20:80 Construction-Linked Plan</h2>
+      <p>Pay just 20% now and the rest across 4 easy construction milestones. Zero financial stress — pay as the project progresses.</p>
+    </div>
+
+    <div class="payment-timeline">
+
+      <div class="payment-step">
+        <div class="payment-step-num">1</div>
+        <div class="payment-step-content">
+          <div class="payment-step-label">At Booking</div>
+          <div class="payment-step-percent">10%</div>
+          <div class="payment-step-note">Secure your unit at pre-launch price</div>
+        </div>
+        <div class="payment-connector"></div>
+      </div>
+
+      <div class="payment-step">
+        <div class="payment-step-num">2</div>
+        <div class="payment-step-content">
+          <div class="payment-step-label">Within 30 Days of Booking</div>
+          <div class="payment-step-percent">10%</div>
+          <div class="payment-step-note">Complete the initial commitment</div>
+        </div>
+        <div class="payment-connector"></div>
+      </div>
+
+      <div class="payment-step milestone">
+        <div class="payment-step-num">3</div>
+        <div class="payment-step-content">
+          <div class="payment-step-label">Ground Floor Slab Casting</div>
+          <div class="payment-step-percent">20%</div>
+          <div class="payment-step-note">Construction milestone — watch your home rise</div>
+        </div>
+        <div class="payment-connector"></div>
+      </div>
+
+      <div class="payment-step milestone">
+        <div class="payment-step-num">4</div>
+        <div class="payment-step-content">
+          <div class="payment-step-label">10th Floor Slab Casting</div>
+          <div class="payment-step-percent">20%</div>
+          <div class="payment-step-note">Half the structure complete</div>
+        </div>
+        <div class="payment-connector"></div>
+      </div>
+
+      <div class="payment-step milestone">
+        <div class="payment-step-num">5</div>
+        <div class="payment-step-content">
+          <div class="payment-step-label">Structure Completion</div>
+          <div class="payment-step-percent">20%</div>
+          <div class="payment-step-note">Full structure standing tall</div>
+        </div>
+        <div class="payment-connector"></div>
+      </div>
+
+      <div class="payment-step final">
+        <div class="payment-step-num">6</div>
+        <div class="payment-step-content">
+          <div class="payment-step-label">On Possession</div>
+          <div class="payment-step-percent">20%</div>
+          <div class="payment-step-note">Get your keys — move into your dream home</div>
+        </div>
+      </div>
+
+    </div><!-- end timeline -->
+
+    <div class="payment-summary">
+      <div class="payment-sum-card">
+        <div class="payment-sum-val">20%</div>
+        <div class="payment-sum-label">Pay Now to Book</div>
+      </div>
+      <div class="payment-sum-card highlight">
+        <div class="payment-sum-val">80%</div>
+        <div class="payment-sum-label">Linked to Construction</div>
+      </div>
+      <div class="payment-sum-card">
+        <div class="payment-sum-val">0%</div>
+        <div class="payment-sum-label">Brokerage / Hidden Charges</div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:40px;">
+      <button class="btn-primary" onclick="openModal()">Get Detailed Payment Plan</button>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ─── PAYMENT PLAN SECTION ─── */
+.payment-section { background: #f9f9f9; }
+.payment-header { text-align: center; margin-bottom: 48px; }
+.payment-header h2 { font-size: clamp(1.6rem,3vw,2.2rem); font-weight:700; color:#111; margin:12px 0 10px; }
+.payment-header p { color: #666; max-width: 560px; margin: 0 auto; font-size:0.97rem; }
+
+.payment-timeline {
+  display: flex;
+  flex-direction: column;
+  max-width: 680px;
+  margin: 0 auto 48px;
+  gap: 0;
+}
+
+.payment-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  position: relative;
+}
+
+.payment-step-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 12px rgba(200,0,26,0.25);
+}
+
+.payment-step.final .payment-step-num {
+  background: #111;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.payment-connector {
+  position: absolute;
+  left: 21px;
+  top: 44px;
+  width: 2px;
+  height: 44px;
+  background: linear-gradient(to bottom, var(--gold), rgba(200,0,26,0.2));
+}
+
+.payment-step-content {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  flex: 1;
+  margin-bottom: 22px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.payment-step.milestone .payment-step-content {
+  border-left: 3px solid var(--gold);
+}
+
+.payment-step.final .payment-step-content {
+  border: 2px solid #111;
+  background: #111;
+  color: #fff;
+}
+
+.payment-step-label {
+  font-weight: 600;
+  color: #111;
+  font-size: 0.95rem;
+  flex: 1;
+}
+.payment-step.final .payment-step-label { color: #fff; }
+
+.payment-step-percent {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.payment-step.final .payment-step-percent { color: #C8001A; background:#fff; padding: 4px 12px; border-radius:8px; font-size:1.2rem; }
+
+.payment-step-note {
+  font-size: 0.78rem;
+  color: #888;
+  width: 100%;
+  margin-top: 2px;
+}
+.payment-step.final .payment-step-note { color: rgba(255,255,255,0.7); }
+
+/* Summary cards */
+.payment-summary {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.payment-sum-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px 32px;
+  text-align: center;
+  min-width: 160px;
+  box-shadow: var(--shadow);
+}
+.payment-sum-card.highlight {
+  background: linear-gradient(135deg, #C8001A, #E8192C);
+  border-color: transparent;
+  color: #fff;
+}
+.payment-sum-val {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+}
+.payment-sum-card.highlight .payment-sum-val { color: #fff; }
+.payment-sum-label {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 6px;
+  font-weight: 500;
+}
+.payment-sum-card.highlight .payment-sum-label { color: rgba(255,255,255,0.85); }
+
+@media (max-width: 600px) {
+  .payment-step-content { flex-direction: column; gap: 6px; }
+  .payment-step-percent { font-size: 1.2rem; }
+  .payment-sum-card { min-width: 130px; padding: 18px 20px; }
+}
+</style>
+
 <!-- ─── FLOOR PLANS ──────────────────────────────────────── -->
 <section class="section floorplan-section" id="floorplans">
   <div class="container">
