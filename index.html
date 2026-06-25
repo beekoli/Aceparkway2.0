@@ -29,8 +29,13 @@
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Property Saraansh" />
 
-  <!-- Google Tag Manager placeholder -->
-  <!-- GTM-XXXXXXX -->
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5Z34CKXB');</script>
+  <!-- End Google Tag Manager -->
 
   <!-- Schema Markup -->
   <script type="application/ld+json">
@@ -1796,6 +1801,10 @@
   <!-- ===== End Schema Markup ===== -->
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5Z34CKXB"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <!-- Google Tag Manager (noscript) -->
 
@@ -1841,9 +1850,9 @@
     <a href="#faq" onclick="closeMobileNav()"><span class="nav-icon">❓</span> FAQs</a>
   </nav>
   <div class="mobile-nav-cta">
-    <a href="tel:+919999135369" class="mnav-call">📞 Call: 9999-135-369</a>
+    <a href="tel:+919999135369" class="mnav-call" onclick="window.dataLayer=window.dataLayer||[];window.dataLayer.push({'event':'call_click'});">📞 Call: 9999-135-369</a>
     <button class="mnav-enquire" type="button" onclick="closeMobileNav(); openModal()">🔥 Get Pre-Launch Price</button>
-    <a href="https://wa.me/919999135369?text=Hi, I am interested in ACE Parkway 2.0 Sector 150 Noida. Please share details." target="_blank" class="mnav-wa">💬 WhatsApp Us</a>
+    <a href="https://wa.me/919999135369?text=Hi, I am interested in ACE Parkway 2.0 Sector 150 Noida. Please share details." target="_blank" class="mnav-wa" onclick="window.dataLayer=window.dataLayer||[];window.dataLayer.push({'event':'whatsapp_click'});">💬 WhatsApp Us</a>
   </div>
 </div>
 
@@ -2471,7 +2480,7 @@
     <p class="footer-bottom">
       © 2025 Property Saraansh. All Rights Reserved. |
       <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms.html">Terms &amp; Conditions</a> |
-      Contact: <a href="tel:+919999135369">+91-9999-135-369</a>
+      Contact: <a href="tel:+919999135369" onclick="window.dataLayer=window.dataLayer||[];window.dataLayer.push({'event':'call_click'});">+91-9999-135-369</a>
     </p>
   </div>
 </footer>
@@ -2479,7 +2488,7 @@
 <!-- ─── STICKY BOTTOM BAR — Mobile only ───────────────────────── -->
 <div class="sticky-bar">
   <div class="sticky-bar-inner">
-    <a href="tel:+919999135369" class="sticky-btn sticky-call">
+    <a href="tel:+919999135369" class="sticky-btn sticky-call" onclick="window.dataLayer=window.dataLayer||[];window.dataLayer.push({'event':'call_click'});">
       📞 Call Now
     </a>
     <button class="sticky-btn sticky-enquire" onclick="openModal()">
@@ -2489,7 +2498,7 @@
 </div>
 
 <!-- ─── FLOATING WHATSAPP ──────────────────────────────────────── -->
-<a href="https://wa.me/919999135369?text=Hi, I am interested in ACE Parkway 2.0 Sector 150 Noida. Please share the brochure, price list, floor plans and latest offers." target="_blank" class="float-wa" title="Chat on WhatsApp">💬</a>
+<a href="https://wa.me/919999135369?text=Hi, I am interested in ACE Parkway 2.0 Sector 150 Noida. Please share the brochure, price list, floor plans and latest offers." target="_blank" class="float-wa" title="Chat on WhatsApp" onclick="window.dataLayer=window.dataLayer||[];window.dataLayer.push({'event':'whatsapp_click'});">💬</a>
 
 <!-- ─── ENQUIRY MODAL ─────────────────────────────────────────── -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
@@ -2721,11 +2730,22 @@
 
     submitToSheet
       .then(function() {
+        // Fire GTM form_submission conversion event
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          'event': 'form_submission',
+          'form_id': formId,
+          'lead_name': data.name,
+          'lead_phone': data.phone,
+          'lead_interest': data.interest
+        });
         // Redirect to thank-you page
         window.location.href = 'thankyou.html';
       })
       .catch(function() {
-        // On network error still redirect — lead not lost
+        // On network error still fire event + redirect — lead not lost
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ 'event': 'form_submission', 'form_id': formId });
         window.location.href = 'thankyou.html';
       });
   }
