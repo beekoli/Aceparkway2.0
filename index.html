@@ -2812,6 +2812,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ─── JAVASCRIPT ─────────────────────────────────────────────── -->
 <script>
 
+  /* ─── FAQ ACCORDION ─── */
+  function toggleFaq(el) {
+    var item = el.parentElement;
+    var isActive = item.classList.contains('active');
+    document.querySelectorAll('.faq-item.active').forEach(function(i) { i.classList.remove('active'); });
+    if (!isActive) { item.classList.add('active'); }
+  }
+
   /* ─── MOBILE NAV ─── */
   function toggleMobileNav() {
     var nav = document.getElementById('mobileNav');
